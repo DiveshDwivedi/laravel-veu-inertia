@@ -1,0 +1,18 @@
+<script setup>
+</script>
+
+<template>
+    <div>
+        <header class="bg-blue-400 text-white">
+            <nav class="flex items-center p-4 justify-between max-w-screen-lg mx-auto">
+               <div class="space-x-6">
+                <Link :href="route('home')">Home</Link>
+                <Link :href="route('about')">About</Link>
+               </div> 
+            </nav>
+        </header>
+        <main class="p-4">
+          <slot></slot>  
+        </main>
+    </div>
+</template>
