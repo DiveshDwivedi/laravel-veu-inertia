@@ -18,4 +18,8 @@ defineOptions({layout: Layout});
   <h1 class="text-red-700">Hi Vue.js is live</h1>
   <p>{{$page.component}}</p>
   <p>{{$page.props.auth.user}}</p>
+
+  <div>
+    <Link href="/" class="mt-[600px] block" preserve-scroll>Refresh </Link>
+  </div>
 </template>
