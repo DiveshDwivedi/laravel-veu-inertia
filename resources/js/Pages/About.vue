@@ -8,5 +8,4 @@ defineProps({
   <h6>Loading....</h6>
   <p>{{$page.component}}</p>
   <p>{{$page.props.auth.user}}</p>
-
 </template>

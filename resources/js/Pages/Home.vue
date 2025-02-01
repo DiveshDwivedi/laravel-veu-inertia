@@ -3,7 +3,7 @@ import Layout from '../Layouts/Layout.vue';
 import { Head } from '@inertiajs/vue3';
 
 
-defineOptions({layout: Layout});
+// defineOptions({layout: Layout});
 
 /**
  * defineOptions(): Declares the component options like props, methods, name in a structured way.

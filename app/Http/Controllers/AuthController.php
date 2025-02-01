@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -17,9 +19,11 @@ class AuthController extends Controller
         // Register user 
         $user = User::create($validated);
 
-        // Login user 
+        // Login use 
         Auth::login($user);
         
         // Authentication check 
+
+        return redirect()->route('home');
     }
 }
