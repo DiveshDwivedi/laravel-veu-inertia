@@ -24,3 +24,5 @@ defineProps({
         <div class="error text-red-500" v-if="message">{{ message }}</div>
     </div>
 </template>
+
+

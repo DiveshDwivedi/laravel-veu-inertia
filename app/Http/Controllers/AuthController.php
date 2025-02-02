@@ -26,4 +26,25 @@ class AuthController extends Controller
 
         return redirect()->route('home');
     }
+
+     /**
+     * Handle Login's an authentication attempt.
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email', 'max:221'],
+            'password' => ['required', 'min:8', 'max:21'],
+        ]);
+ 
+        if (Auth::attempt($credentials, $request->remember)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('/');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
 }
