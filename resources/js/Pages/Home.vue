@@ -1,8 +1,20 @@
 <script setup>
-import Layout from '../Layouts/Layout.vue';
+// import Layout from '../Layouts/Layout.vue';
 import { Head } from '@inertiajs/vue3';
+import PaginateLink from "../Components/PaginateLink.vue";
 
 
+defineProps({
+  users: Object,
+});
+
+const getDate = (date) => {
+  return new Date(date).toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
 // defineOptions({layout: Layout});
 
 /**
@@ -15,11 +27,27 @@ import { Head } from '@inertiajs/vue3';
 </script>
 <template>
   <Head :title="' | ' + $page.component" />
-  <h1 class="text-red-700">Hi Vue.js is live</h1>
-  <p>{{$page.component}}</p>
-  <p>{{$page.props.auth.user}}</p>
 
   <div>
-    <Link href="/" class="mt-[600px] block" preserve-scroll>Refresh </Link>
+    <table>
+      <thead>
+      <tr class="bg-slate-500">
+      <th>Avatar</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Registration Date</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in users.data" :key="user.id">
+        <td><img class="w-28 h-28 rounded-full" :src="'storage/' + user.avatar ?? ''" alt=""></td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{ getDate(user.created_at)}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+ 
+<PaginateLink :paginator="users" />
 </template>

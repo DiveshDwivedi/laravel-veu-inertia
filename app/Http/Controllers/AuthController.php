@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+    public function home() {
+        $users = User::paginate(10);
+
+        return Inertia::render('Home', ['users' => $users]);
+    }
+
     function register(Request $request)  {
         // input validate 
         $validated = $request->validate([
@@ -24,9 +31,8 @@ class AuthController extends Controller
             $path = Storage::disk('public')->put('avatars', $request->avatar);  // storage/app/public
             // s3 
         }
+        $validated['avatar'] = $path ?? null;
         
-        $validated['avatar'] = $path;
-     
         // Register user 
         $user = User::create($validated);
 
