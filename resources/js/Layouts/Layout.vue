@@ -10,7 +10,8 @@
                 <Link :href="route('about')" :class="{'bg-slate-700 p-1' : $page.component == 'About'}">About</Link>
                 <Link :href="route('contact')" :class="{'bg-slate-700 p-1' : $page.component == 'Contact'}">Contact us</Link>
                </div>
-               <div v-if="$page.props.auth.user" class="space-x-6">
+               <div v-if="$page.props.auth.user" class="space-x-6 flex">
+               <img :src="'/storage/' + $page.props.auth.user.avatar" alt="avatar" class="w-7 h-7">
                 <Link :href="route('dashboard')" :class="{'bg-slate-700 p-1' : $page.component == 'Auth/Dashboard'}" >Dashboard</Link>
                 <Link :href="route('logout')" method="post" as="button">Logout</Link>
                </div>

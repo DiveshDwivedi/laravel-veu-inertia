@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -13,9 +14,19 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => 'string|required|min:4|max:20',
             'email' => 'email|required|max:221|unique:users',
-            'password' => 'required|confirmed|min:8|max:21'
+            'password' => 'required|confirmed|min:8|max:21',
+            'avatar' => 'nullable|file|max:300'
         ]);
 
+
+        if ($request->hasFile('avatar')) {
+            // Storage::disk('local')->put('avatars', $request->avatar); // storage/app/private
+            $path = Storage::disk('public')->put('avatars', $request->avatar);  // storage/app/public
+            // s3 
+        }
+        
+        $validated['avatar'] = $path;
+     
         // Register user 
         $user = User::create($validated);
 
@@ -23,8 +34,7 @@ class AuthController extends Controller
         Auth::login($user);
         
         // Authentication check 
-
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
     }
 
      /**
@@ -53,7 +63,7 @@ class AuthController extends Controller
  
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home');
+        return redirect()->route('login');
         // return redirect('/');
     }
 }
