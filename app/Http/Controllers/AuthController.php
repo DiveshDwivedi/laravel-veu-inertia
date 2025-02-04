@@ -40,7 +40,7 @@ class AuthController extends Controller
         Auth::login($user);
         
         // Authentication check 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('message', 'Welocme to vue.js');
     }
 
      /**
