@@ -1,4 +1,3 @@
-<!--eslint-disable vue/no-v-text-v-html-on-component-->
 <script setup>
 defineProps({
   paginator: {
